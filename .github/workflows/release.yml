@@ -23,17 +23,26 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Install dependencies
+      - name: Install dependencies with pnpm
         run: pnpm install
 
-      - name: Build project
+      - name: Build project with pnpm
         run: pnpm run build
 
-      - name: Upload dist files as release assets
+      - name: Check out the release branch
         run: |
-          # Find all files in the dist directory and upload them individually
-          find dist -type f | while read file; do
-            gh release upload ${{ github.event.release.tag_name }} "$file" --clobber
-          done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin
+          git switch -C release origin/release || git checkout --orphan release
+
+      - name: Copy build output to release branch
+        run: |
+          rm -rf ./*
+          cp -r ../dist/* .
+
+      - name: Commit and push changes
+        run: |
+          git add .
+          git commit -m "Update release files"
+          git push -u origin release --force
