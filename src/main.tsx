@@ -1,10 +1,22 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import App from './App';
+import App from './components/app';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+const inject = () => {
+  const element = document.createElement('div');
+
+  document.body.append(element);
+
+  createRoot(element).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+};
+
+if (['complete', 'loaded', 'interactive'].includes(document.readyState)) {
+  inject();
+} else {
+  document.addEventListener('DOMContentLoaded', () => inject());
+}

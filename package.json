@@ -10,12 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@scalar/api-client": "^2.1.13",
-    "@scalar/api-reference-react": "^0.3.103",
+    "clsx": "^2.1.1",
+    "handlebars": "^4.7.8",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-loading-skeleton": "^3.5.0",
+    "shiki": "^1.22.0"
   },
   "devDependencies": {
+    "@tsconfig/strictest": "^2.0.5",
     "@eslint/js": "^9.11.1",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
