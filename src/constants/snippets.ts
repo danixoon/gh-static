@@ -1,10 +1,10 @@
-const configByName = import.meta.glob('../snippets/**/*.json', {
+const configByName = import.meta.glob('../../snippets/**/*.json', {
   query: '?raw',
   import: 'default',
   eager: true,
 }) as Record<string, string>;
 
-const contentByName = import.meta.glob('../snippets/**/*.hbs', {
+const contentByName = import.meta.glob('../../snippets/**/*.hbs', {
   query: '?raw',
   import: 'default',
   eager: true,
