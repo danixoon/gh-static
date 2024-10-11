@@ -16,5 +16,14 @@
 .snippet-viewer__header-title {
   color: white;
   flex: 1;
-  padding-left: 1rem;
+}
+
+.snippet-viewer__header-copy {
+  background-color: #24292e;
+  border: 1.5px solid #9ecbff;
+  color: #9ecbff;
+  border-radius: 4px;
+  margin: 0rem 0.5rem;
+  cursor: pointer;
+  font-size: 12px;
 }

@@ -11,7 +11,7 @@ export type Props = React.PropsWithChildren<
     React.HTMLAttributes<HTMLDivElement>,
     {
       loading?: boolean;
-      option: SnippetOption;
+      option: SnippetOption & { html: string };
     }
   >
 >;
@@ -27,7 +27,7 @@ const Content: FC<Props> = (props) => {
   }, [loading, option.content]);
 
   if (!loading) {
-    return <div {...rest} className="snippet-viewer-content" dangerouslySetInnerHTML={{ __html: option.content }} />;
+    return <div {...rest} className="snippet-viewer-content" dangerouslySetInnerHTML={{ __html: option.html }} />;
   } else {
     return (
       <div {...rest} className="snippet-viewer-content">
