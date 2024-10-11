@@ -4,6 +4,9 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,7 +31,8 @@ jobs:
 
       - name: Upload dist files as release assets
         run: |
-          for file in dist/*; do
+          # Find all files in the dist directory and upload them individually
+          find dist -type f | while read file; do
             gh release upload ${{ github.event.release.tag_name }} "$file" --clobber
           done
         env:
