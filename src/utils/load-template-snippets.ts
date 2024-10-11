@@ -14,8 +14,9 @@ export const loadTemplateSnippets = () => {
     const option = { language: snippet.language, content: snippet.content };
     const template: TemplateSnippet = {
       key,
-      title: snippet.title || snippet.name,
+      title: snippet.config.title || snippet.name,
       options: [...(byKey[k]?.options || []), option],
+      payload: snippet.config.payload || {},
     };
 
     byKey[k] = { ...byKey[k], ...template };

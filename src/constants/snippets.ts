@@ -1,4 +1,4 @@
-const describeByName = import.meta.glob('../snippets/**/*.json', {
+const configByName = import.meta.glob('../snippets/**/*.json', {
   query: '?raw',
   import: 'default',
   eager: true,
@@ -10,14 +10,14 @@ const contentByName = import.meta.glob('../snippets/**/*.hbs', {
   eager: true,
 }) as Record<string, string>;
 
-const descriptionById = Object.keys(describeByName).reduce((byKey, key) => {
+const configById = Object.keys(configByName).reduce((byKey, key) => {
   const next = { ...byKey };
 
   const [, path] = key.split('/snippets/');
   const [group, file] = path.split('/');
   const [name] = file.split('.');
 
-  next[`${group}.${name}`] = JSON.parse(describeByName[key]);
+  next[`${group}.${name}`] = JSON.parse(configByName[key]);
 
   return next;
 }, {} as Record<string, { title: string }>);
@@ -29,9 +29,9 @@ export const snippets = Object.keys(contentByName).reduce((byKey, key) => {
   const [group, file] = path.split('/');
   const [name, language] = file.split('.');
 
-  const description = descriptionById[`${group}.${name}`]!;
+  const config = configById[`${group}.${name}`]!;
 
-  next[key] = { ...next[key], group, name, language, content: contentByName[key], ...description };
+  next[key] = { ...next[key], group, name, language, content: contentByName[key], config: config };
 
   return next;
-}, {} as Record<string, { title: string; group: string; name: string; language: string; content: string }>);
+}, {} as Record<string, { config: { title: string; payload?: Record<string, unknown> }; group: string; name: string; language: string; content: string }>);

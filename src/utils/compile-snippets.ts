@@ -14,7 +14,7 @@ export const compileSnippets = (templates: Record<string, TemplateSnippet>, snip
 
     const options: SnippetOption[] = template.options.map((o) => ({
       ...o,
-      content: hbs.compile(o.content)(snippet.payload),
+      content: hbs.compile(o.content, { noEscape: true })({ ...template.payload, ...snippet.payload }),
     }));
 
     compiledById[snippet.id] = { snippet, options, template };
